@@ -5,12 +5,13 @@ import com.travelexperts.services.AgentService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  *
- *      Paths   /agents
+ *      Paths:
+ *              /agents
  *                     --> returns all agents
  *
  *              /agents/{agentId}
@@ -19,7 +20,6 @@ import java.util.ArrayList;
  *                     --> PUT: replace agent's info
  *                     --> DELETE: remove an agent
  *
- *
  */
 
 @Path("/agents")
@@ -27,19 +27,41 @@ import java.util.ArrayList;
 @Produces(MediaType.APPLICATION_JSON)
 public class AgentResource {
 
-    AgentService agentService = new AgentService();
+    private AgentService agentService = new AgentService();
 
     // return list of all agents
     @GET
-    public ArrayList<Agent> getAgents() {
+    public List<Agent> getAgents() {
         return agentService.getAgents();
     }
 
+
+    // insert an agent and return successs/fail
+    // TODO:  check --- does this need to return an agent?
+    @POST
+    public boolean addAgent(Agent agent) {
+        return agentService.insertAgent(agent);
+    }
 
     // return a single agent
     @GET
     @Path("/{agentId}")
     public Agent getAgent(@PathParam("agentId") int agentId) {
         return agentService.getAgent(agentId);
+
+    }
+
+    // alter an existing agent record return success/fail
+    @PUT
+    @Path("/{agentId}")
+    public boolean updateAgent(@PathParam("agentId") int agentId, Agent agent) {
+        agent.setAgentId(agentId);
+        return agentService.updateAgent(agent);
+    }
+
+    @DELETE
+    @Path("/{agentId}")
+    public void deleteAgent(@PathParam("agentId") int agentId) {
+        agentService.deleteAgent(agentId);
     }
 }

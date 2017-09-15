@@ -11,21 +11,22 @@ import com.travelexperts.model.Agent;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class AgentService {
 
-    private static Connection conn;
+    private Connection conn;
 
     public AgentService() { }
 
     // retrieves all agents
-    public static ArrayList<Agent> getAgents() {
-        ArrayList<Agent> agents = new ArrayList<>();
+    public List<Agent> getAgents() {
+        List<Agent> agents = new ArrayList<>();
         Statement stmt;
         ResultSet rs;
         try {
             conn = TravelExpertsDB.getConnection();
+            assert conn != null;
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM agents");
             while (rs.next()) {
@@ -38,16 +39,14 @@ public class AgentService {
                         rs.getString("AgtPosition"),
                         rs.getInt("AgencyId")));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return agents;
     }
 
     // retrieves one agent from Agents table
-    public static Agent getAgent(int agentid) {
+    public Agent getAgent(int agentid) {
         Agent agent = null;
         PreparedStatement pstmt;
         ResultSet rs;
@@ -65,47 +64,47 @@ public class AgentService {
                               rs.getString("AgtPosition"),
                               rs.getInt("AgencyId")
             );
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return agent;
     }
 
     // updates one agent
-    public static boolean updateAgent(Agent agt) throws SQLException {
+    public boolean updateAgent(Agent agt)  {
         boolean success = false;
         String updateQuery = "UPDATE Agents SET " +
-                             "AgtFirstName = ?, " +
-                             "AgtMiddleInitial = ?, " +
-                             "AgtLastName = ?, " +
-                             "AgtBusPhone = ?, " +
-                             "AgtEmail = ?, " +
-                             "AgtPosition = ?, " +
-                             "AgencyId = ? " +
-                             "WHERE AgentId = ?";
-        PreparedStatement psmt = conn.prepareStatement(updateQuery);
-        psmt.setString(1, agt.getAgtFirstName());
-        psmt.setString(2, agt.getAgtMiddleInitial());
-        psmt.setString(3, agt.getAgtLastName());
-        psmt.setString(4, agt.getAgtBusPhone());
-        psmt.setString(5, agt.getAgtEmail());
-        psmt.setString(6, agt.getAgtPosition());
-        psmt.setInt(7, agt.getAgencyId());
-        psmt.setInt(8, agt.getAgentId());
+                "AgtFirstName = ?, " +
+                "AgtMiddleInitial = ?, " +
+                "AgtLastName = ?, " +
+                "AgtBusPhone = ?, " +
+                "AgtEmail = ?, " +
+                "AgtPosition = ?, " +
+                "AgencyId = ? " +
+                "WHERE AgentId = ?";
 
         try {
+            PreparedStatement psmt = conn.prepareStatement(updateQuery);
+            psmt.setString(1, agt.getAgtFirstName());
+            psmt.setString(2, agt.getAgtMiddleInitial());
+            psmt.setString(3, agt.getAgtLastName());
+            psmt.setString(4, agt.getAgtBusPhone());
+            psmt.setString(5, agt.getAgtEmail());
+            psmt.setString(6, agt.getAgtPosition());
+            psmt.setInt(7, agt.getAgencyId());
+            psmt.setInt(8, agt.getAgentId());
             int result = psmt.executeUpdate();
             if (result > 0) {
                 success = true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             System.err.println("Something went wrong");
         }
         return success;
     }
 
     // insert new record into agent table
-    public static boolean insertAgent(Agent agent) {
+    public boolean insertAgent(Agent agent) {
         boolean success = false;
         String insertStatement;
         PreparedStatement pstmt;
@@ -138,14 +137,14 @@ public class AgentService {
             if (result > 0) {
                 success = true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return success;
     }
 
     // delete an agent from the agents table
-    public static boolean deleteAgent(Agent agent) {
+    public boolean deleteAgent(int agentId) {
         boolean success = false;
         String deleteStatement;
         PreparedStatement pstmt;
@@ -156,7 +155,7 @@ public class AgentService {
                     "WHERE AgentId = ?";
 
             pstmt = conn.prepareStatement(deleteStatement);
-            pstmt.setInt(1, agent.getAgentId());
+            pstmt.setInt(1, agentId);
             result = pstmt.executeUpdate();
 
             conn.close();
@@ -164,7 +163,7 @@ public class AgentService {
             if (result > 0) {
                 success = true;
             }
-        } catch (SQLException e) {
+        } catch (SQLException | NullPointerException e) {
             e.printStackTrace();
         }
         return success;
