@@ -51,6 +51,7 @@ public class AgentService {
         PreparedStatement pstmt;
         ResultSet rs;
         try {
+            conn = TravelExpertsDB.getConnection();
             pstmt = conn.prepareStatement("SELECT * FROM agents WHERE AgentId = ?");
             pstmt.setInt(1, agentid);
             rs = pstmt.executeQuery();
@@ -84,6 +85,7 @@ public class AgentService {
                 "WHERE AgentId = ?";
 
         try {
+            conn = TravelExpertsDB.getConnection();
             PreparedStatement psmt = conn.prepareStatement(updateQuery);
             psmt.setString(1, agt.getAgtFirstName());
             psmt.setString(2, agt.getAgtMiddleInitial());
