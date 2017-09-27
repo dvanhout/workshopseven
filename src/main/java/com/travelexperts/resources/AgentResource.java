@@ -50,18 +50,19 @@ public class AgentResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String addAgent(@FormParam("AgentId") int agentId,
-                            @FormParam("AgtFirstName") String agtFirstName,
-                            @FormParam("AgtMiddleInitial") String agtMiddleInitial,
-                            @FormParam("AgtLastName") String agtLastName,
-                            @FormParam("AgtBusPhone") String agtBusPhone,
-                            @FormParam("AgtEmail") String agtEmail,
-                            @FormParam("AgtPosition") String agtPosition,
-                            @FormParam("AgencyId") int agencyId) {
+    public String addAgent(@FormParam("AgtFirstName") String agtFirstName,
+                           @FormParam("AgtMiddleInitial") String agtMiddleInitial,
+                           @FormParam("AgtLastName") String agtLastName,
+                           @FormParam("AgtBusPhone") String agtBusPhone,
+                           @FormParam("AgtEmail") String agtEmail,
+                           @FormParam("AgtPosition") String agtPosition,
+                           @FormParam("AgencyId") int agencyId) {
 
-        Agent agt = new Agent(agentId, agtFirstName, agtMiddleInitial, agtLastName,
+        // pass a dummy value for agentId - this is auto-assigned
+        Agent agt = new Agent(0, agtFirstName, agtMiddleInitial, agtLastName,
                             agtBusPhone, agtEmail, agtPosition, agencyId);
 
+        // try the database query and send back message to user
         if (agentService.insertAgent(agt)) {
             return "Agent insert successful";
         } else {
