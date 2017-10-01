@@ -42,7 +42,7 @@
                     <%--<li class="active"><a href="webapi/agents">Say Hello to all the Agents (JSON format) <span class="sr-only">(current)</span></a></li>--%>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href=\"login.jsp\">Login</a></li>
+                    <li><a href="login.jsp">Login</a></li>
                 </ul>
             </div>
         </div>
