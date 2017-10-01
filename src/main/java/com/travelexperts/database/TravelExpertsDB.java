@@ -20,15 +20,17 @@ public class TravelExpertsDB {
         {
             System.out.println("Connecting to Travel Experts Database...");
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");
             Connection conn =
-                    DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "root", "");
+                    DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "don", "P@ssw0rd");
             return conn;
 
         }
-        catch (ClassNotFoundException | SQLException e)
+        catch (SQLException e)
         {
             System.out.println("Something went wrong with database connection");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         return null;
