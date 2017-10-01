@@ -1,18 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: kaaneroglu
-  Date: 2017-09-24
-  Time: 1:55 PM
+  Date: 2017-10-01
+  Time: 2:23 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import ="java.sql.*" %>
-
-
-
 <html>
 <head>
-    <title>Travel Experts Agents Web Service </title>
+    <title>Travel Experts Agents Web Service</title>
     <link rel="stylesheet" href="bootstrap.css">
 </head>
 <body>
@@ -51,10 +47,15 @@
     </div>
 </nav>
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="well bs-component">
-                <form action="loginCheck.jsp" method="post" class="form-horizontal">
+<div class="row">
+    <div class="col-lg-6">
+        <div class="well bs-component">
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Oh snap!</strong> <a href="#" class="alert-link">That's not the correct login</a> please try submitting again.
+            </div>
+
+            <form action="loginCheck.jsp" method="post" class="form-horizontal">
                 <fieldset>
                     <div class="form-group">
                         <label for="inputUsername" class="col-lg-2 control-label">Username</label>
@@ -76,8 +77,8 @@
                     </div>
                 </fieldset>
             </form>
-            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

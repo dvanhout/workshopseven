@@ -1,13 +1,29 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: kaaneroglu
+  Date: 2017-10-01
+  Time: 2:27 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
+    {
+        response.sendRedirect("login.jsp");
+
+    }
+%>
 <html>
-    <head>
-        <title>Travel Experts Agents Web Service </title>
-        <link rel="stylesheet" href="bootstrap.css">
-
-    </head>
-    <body class style>
-
-
+<head>
+    <title>Travel Experts Agents Web Service</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+    <%
+        session.removeAttribute("username");
+        session.removeAttribute("password");
+        session.invalidate();
+    %>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -26,29 +42,24 @@
                     <%--<li class="active"><a href="webapi/agents">Say Hello to all the Agents (JSON format) <span class="sr-only">(current)</span></a></li>--%>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <%
-                        if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
-                        {
-                            out.print("<li><a href=\"login.jsp\">Login</a></li>");
-
-                        }
-                        else
-                        {
-                            out.print("<li><a href=\"logout.jsp\">Logout</a></li>");
-                        }
-                    %>
-
+                    <li><a href=\"login.jsp\">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
 
-        <div class="jumbotron">
-            <h1>Agents Database</h1>
-            <p>This is a prototype web site that consumes the Agents Restful web Service developed by our team.</p>
-            <p><a class="btn btn-primary btn-lg" href="agent.jsp">Click to start...</a></p>
-        </div>
 
-    </body>
+    <div class="row">
+        <div class="col-lg-6">
+
+                <div class="alert alert-dismissible alert-info">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Good day!</strong> You <a href="#" class="alert-link">have successfully logged out.</a>
+                </div>
+
+        </div>
+    </div>
+
+</body>
 </html>
