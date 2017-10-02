@@ -134,6 +134,15 @@ public class AgentService {
             pstmt.setInt(7, agent.getAgencyId());
             result = pstmt.executeUpdate();
 
+            System.out.println(agent.getAgtFirstName() + " | "
+                            + agent.getAgtMiddleInitial() + " | "
+                            + agent.getAgtLastName() + " | "
+                            + agent.getAgtBusPhone() + " | "
+                            + agent.getAgtEmail() + " | "
+                            + agent.getAgtPosition() + " | "
+                            + agent.getAgencyId() + " | "
+            );
+
             conn.close();
 
             if (result > 0) {

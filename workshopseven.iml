@@ -49,5 +49,8 @@
     <orderEntry type="library" name="Maven: javax.interceptor:javax.interceptor-api:1.2" level="project" />
     <orderEntry type="library" name="Maven: javax.json.bind:javax.json.bind-api:1.0" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" name="Maven: jackson:jackson-lgpl:0.9.3" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-lgpl:1.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-lgpl:1.5.1" level="project" />
   </component>
 </module>

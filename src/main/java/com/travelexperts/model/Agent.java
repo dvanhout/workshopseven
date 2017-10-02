@@ -8,9 +8,11 @@
 
 package com.travelexperts.model;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name="agent")
 public class Agent {
     // --- FIELDS (matches Travel Experts DB)
     private int AgentId;
@@ -22,7 +24,21 @@ public class Agent {
     private String AgtPosition;
     private int AgencyId;
 
+    // empty constructor
+    public Agent() {
+    }
 
+
+/*    public Agent(@JsonProperty("agentId") int agentId,
+                 @JsonProperty("agtFirstName") String agtFirstName,
+                 @JsonProperty("agtMiddleInitial") String agtMiddleInitial,
+                 @JsonProperty("agtLastName") String agtLastName,
+                 @JsonProperty("agtBusPhone") String agtBusPhone,
+                 @JsonProperty("agtEmail") String agtEmail,
+                 @JsonProperty("agtPosition") String agtPosition,
+                 @JsonProperty("agencyId") int agencyId) {
+
+    }*/
     // --- CONSTRUCTORS
     // constructor with all fields
     public Agent(int agentId,
@@ -43,9 +59,6 @@ public class Agent {
         AgencyId = agencyId;
     }
 
-    // empty constructor
-    public Agent() {
-    }
 
     // --- GETTERS AND SETTERS
 

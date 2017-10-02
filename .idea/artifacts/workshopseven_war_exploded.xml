@@ -35,6 +35,9 @@
           <element id="library" level="project" name="Maven: javax.interceptor:javax.interceptor-api:1.2" />
           <element id="library" level="project" name="Maven: javax.json.bind:javax.json.bind-api:1.0" />
           <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+          <element id="library" level="project" name="Maven: jackson:jackson-lgpl:0.9.3" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-lgpl:1.5.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-lgpl:1.5.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

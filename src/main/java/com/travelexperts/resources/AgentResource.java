@@ -2,9 +2,12 @@ package com.travelexperts.resources;
 
 import com.travelexperts.model.Agent;
 import com.travelexperts.services.AgentService;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -34,39 +37,30 @@ public class AgentResource {
         return agentService.getAgents();
     }
 
-
-    // insert an agent and return successs/fail
-    // TODO:  check --- does this need to return an agent?
-
-    private int AgentId;
-    private String AgtFirstName;
-    private String AgtMiddleInitial;
-    private String AgtLastName;
-    private String AgtBusPhone;
-    private String AgtEmail;
-    private String AgtPosition;
-    private int AgencyId;
-
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String addAgent(@FormParam("AgtFirstName") String agtFirstName,
-                           @FormParam("AgtMiddleInitial") String agtMiddleInitial,
-                           @FormParam("AgtLastName") String agtLastName,
-                           @FormParam("AgtBusPhone") String agtBusPhone,
-                           @FormParam("AgtEmail") String agtEmail,
-                           @FormParam("AgtPosition") String agtPosition,
-                           @FormParam("AgencyId") int agencyId) {
+    @Consumes({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
+    public Response addAgent(String agentJson) {
 
-        // pass a dummy value for agentId - this is auto-assigned
-        Agent agt = new Agent(0, agtFirstName, agtMiddleInitial, agtLastName,
-                            agtBusPhone, agtEmail, agtPosition, agencyId);
+        Agent agent = null;
 
-        // try the database query and send back message to user
-        if (agentService.insertAgent(agt)) {
-            return "Agent insert successful";
-        } else {
-            return "There was a problem inserting the agent";
+        try {
+            // parse JSON data to agent object
+            agent = new ObjectMapper().readValue(agentJson, Agent.class);
+            // set id to zero regardless of what's passed (new db entry)
+            agent.setAgentId(0);
+            // insert into db ... result should not be zero for successful insert
+            if (agentService.insertAgent(agent)) {
+                return Response.status(200).entity("Agent --> " + agentJson
+                        + " --> created.  NOTE: this agentID is invalid").build();
+            } else {
+                throw new IOException("Cannot create new agent");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Response.status(500)
+                    .entity("There was a problem inserting agent")
+                    .build();
         }
     }
 
@@ -75,21 +69,49 @@ public class AgentResource {
     @Path("/{agentId}")
     public Agent getAgent(@PathParam("agentId") int agentId) {
         return agentService.getAgent(agentId);
-
     }
 
     // alter an existing agent record return success/fail
     @PUT
     @Path("/{agentId}")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public boolean updateAgent(@PathParam("agentId") int agentId, Agent agent) {
+    @Consumes({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
+    public Response updateAgent(@PathParam("agentId") int agentId, String agentJson) {
+        // check for empty json
+        if (agentJson == null || agentJson =="") {
+            return Response.status(400).entity("Please provide an agent").build();
+        }
+
+        Agent agent = null;
+
+        try {  // parse JSON data to agent object
+            agent = new ObjectMapper().readValue(agentJson, Agent.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Response.status(404)
+                    .entity("There was a problem inserting agent")
+                    .build();
+        }
+
+        // use agentid from pathparam
         agent.setAgentId(agentId);
-        return agentService.updateAgent(agent);
+
+        // update the database
+        if (agentService.updateAgent(agent)) {
+            return Response.ok().entity("Agent successfully updated").build();
+        } else {
+            return Response.status(500)
+                    .entity("Something is wrong... agent has not been modified")
+                    .build();
+        }
     }
 
     @DELETE
     @Path("/{agentId}")
-    public void deleteAgent(@PathParam("agentId") int agentId) {
-        agentService.deleteAgent(agentId);
+    public Response deleteAgent(@PathParam("agentId") int agentId) {
+        if (agentService.deleteAgent(agentId)) {
+            return Response.status(200).entity("Agent successfully deleted").build();
+        } else {
+            return Response.status(404).entity("delete unsuccessful").build();
+        }
     }
 }
