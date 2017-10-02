@@ -22,7 +22,9 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="agent.jsp">Update Agent Information</a></li>
+                    <li><a href="agent.jsp">Agents</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Suppliers</a></li>
                     <%--<li class="active"><a href="webapi/agents">Say Hello to all the Agents (JSON format) <span class="sr-only">(current)</span></a></li>--%>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

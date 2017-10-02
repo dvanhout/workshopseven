@@ -19,7 +19,6 @@
     <title>Travel Experts Agents Web Service </title>
     <link rel="stylesheet" href="bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function(){
 
@@ -34,42 +33,40 @@
                     url:  "webapi/agents",
                     success: function(data) {
                         console.log("response:" + data);
-
-
                         $.each(data, function(j, pdata) {
                              $('<tr>').append(
                                 $('<td>').text(pdata.agentId),
                                 $('<td>').text(pdata.agtFirstName),
                                 $('<td>').text(pdata.agtLastName),
                                 $('<td>').text(pdata.agtEmail),
-                                $('<td>').text(pdata.agencyId)
-
+                                $('<td>').text(pdata.agencyId),
+                                 //"<td><a href='#' class='btn btn-danger'"+ "id='deleteagt' value='10' >Delete</a></td>"
+                                 "<td>",
+                                 $('<a href=\'#\' class=\'btn btn-warning\' id=\'updateagt\'>').text('Update ' +pdata.agtFirstName),
+                                 "<td>",
+                                 $('<a href=\'#\' class=\'btn btn-danger\' id=\'deleteagt\'>').text('Delete ' +pdata.agtFirstName)
                             ).appendTo('#agentstable');
-
-
-                            //val= val + "<tr><td>" +pdata.agtFirstName +"</td>"+pdata.agtLastName+"<td></tr>";
                         });
-                        $("#data").text(val);
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(' Error in processing! '+textStatus);
                     }
                 });
                 $("#tablediv").show();
+                $("#welcomediv").hide();
                 $("#submit").hide();
             });
+
+            $("#deleteagt").click(function(event){
+                event.preventDefault();
+                $("#welcomediv").show();
+
+            })
         });
-
-
     </script>
-
-
 </head>
-
-
-
 <body>
-<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -83,7 +80,9 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="agent.jsp">Update Agent Information</a></li>
+                <li><a href="agent.jsp">Agents</a></li>
+                <li><a href="#">Customers</a></li>
+                <li><a href="#">Suppliers</a></li>
                 <%--<li class="active"><a href="webapi/agents">Say Hello to all the Agents (JSON format) <span class="sr-only">(current)</span></a></li>--%>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -103,46 +102,37 @@
         </div>
     </div>
 </nav>
-
-
     <div class="row">
-        <div class="col-lg-6">
-            <div class="well bs-component">
-                <div class="alert alert-dismissible alert-success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Well hello there!</strong> You have successfully logged in <a href="#" class="alert-link">Select display below to get the agents</a>.
-                </div>
+        <div class="well bs-component">
+            <div id="welcomediv" class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Well hello there!</strong> You have successfully logged in <a href="#" class="alert-link">Select display below to get the agents</a>.
+            </div>
 
-                <form class="form-horizontal" method="get">
-                    <table>
-                        <tr>
-                            <td><input type="button" value="Display Agents" id="submit" class="btn btn-success"> </td>
-                            <%--<td><input type="button" value="Update Agent" id="submit" class="btn btn-warning"> </td>--%>
-                            <%--<td><input type="button" value="Delete Agent" id="submit" class="btn btn-danger"> </td>--%>
-                            <div id="data"></div>
-                        </tr>
-                    </table>
-                </form>
+            <form class="form-horizontal" method="get">
+                <table>
+                    <tr>
+                        <td><input type="button" value="Display Agents" id="submit" class="btn btn-success"> </td>
 
-
+                    </tr>
+                </table>
+            </form>
             <div id="tablediv">
                 <table class="table table-striped table-hover " id="agentstable">
-
                     <tr>
                         <th>Agent ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Agency ID</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
-
                 </table>
-            </div>
             </div>
         </div>
     </div>
-
-
 </body>
-
 </html>
