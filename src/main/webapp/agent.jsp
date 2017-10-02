@@ -18,7 +18,56 @@
 <head>
     <title>Travel Experts Agents Web Service </title>
     <link rel="stylesheet" href="bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#tablediv").hide();
+            //var val = "";
+            $("#submit").click(function(event){
+                event.preventDefault();
+
+                $.ajax({
+                    type: "GET",
+                    dataType:"json",
+                    url:  "webapi/agents",
+                    success: function(data) {
+                        console.log("response:" + data);
+
+
+                        $.each(data, function(j, pdata) {
+                             $('<tr>').append(
+                                $('<td>').text(pdata.agentId),
+                                $('<td>').text(pdata.agtFirstName),
+                                $('<td>').text(pdata.agtLastName),
+                                $('<td>').text(pdata.agtEmail),
+                                $('<td>').text(pdata.agencyId)
+
+                            ).appendTo('#agentstable');
+
+
+                            //val= val + "<tr><td>" +pdata.agtFirstName +"</td>"+pdata.agtLastName+"<td></tr>";
+                        });
+                        $("#data").text(val);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(' Error in processing! '+textStatus);
+                    }
+                });
+                $("#tablediv").show();
+                $("#submit").hide();
+            });
+        });
+
+
+    </script>
+
+
 </head>
+
+
+
 <body>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -55,70 +104,45 @@
     </div>
 </nav>
 
+
     <div class="row">
         <div class="col-lg-6">
             <div class="well bs-component">
                 <div class="alert alert-dismissible alert-success">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Well hello there!</strong> You have successfully logged in <a href="#" class="alert-link">Select agent to update</a>.
+                    <strong>Well hello there!</strong> You have successfully logged in <a href="#" class="alert-link">Select display below to get the agents</a>.
                 </div>
-                <table class="table table-striped table-hover ">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Column heading</th>
-                        <th>Column heading</th>
-                        <th>Column heading</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    <tr class="info">
-                        <td>3</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    <tr class="success">
-                        <td>4</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    <tr class="danger">
-                        <td>5</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    <tr class="warning">
-                        <td>6</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    <tr class="active">
-                        <td>7</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                    </tr>
-                    </tbody>
-                </table>
 
+                <form class="form-horizontal" method="get">
+                    <table>
+                        <tr>
+                            <td><input type="button" value="Display Agents" id="submit" class="btn btn-success"> </td>
+                            <%--<td><input type="button" value="Update Agent" id="submit" class="btn btn-warning"> </td>--%>
+                            <%--<td><input type="button" value="Delete Agent" id="submit" class="btn btn-danger"> </td>--%>
+                            <div id="data"></div>
+                        </tr>
+                    </table>
+                </form>
+
+
+            <div id="tablediv">
+                <table class="table table-striped table-hover " id="agentstable">
+
+                    <tr>
+                        <th>Agent ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Agency ID</th>
+                    </tr>
+
+                </table>
+            </div>
             </div>
         </div>
     </div>
+
+
 </body>
+
 </html>
