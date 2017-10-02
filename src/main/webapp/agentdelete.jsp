@@ -20,40 +20,7 @@
     <link rel="stylesheet" href="bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
 
-            $("#tablediv").hide();
-            $("#currentagents").hide();
-            //var val = "";
-            $("#submit").click(function(event){
-                event.preventDefault();
-
-                $.ajax({
-                    type: "GET",
-                    dataType:"json",
-                    url:  "webapi/agents",
-                    success: function(data) {
-                        console.log("response:" + data);
-                        $.each(data, function(j, pdata) {
-                             $('<tr>').append(
-                                $('<td>').text(pdata.agentId),
-                                $('<td>').text(pdata.agtFirstName),
-                                $('<td>').text(pdata.agtLastName),
-                                $('<td>').text(pdata.agtEmail),
-                                $('<td>').text(pdata.agencyId)
-                            ).appendTo('#agentstable');
-                        });
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(' Error in processing! '+textStatus);
-                    }
-                });
-                $("#tablediv").show();
-                $("#welcomediv").hide();
-                $("#submit").hide();
-                $("#currentagents").show();
-            });
-        });
     </script>
 </head>
 <body>
@@ -93,32 +60,51 @@
         </div>
     </div>
 </nav>
-    <div class="row">
-        <div class="well bs-component">
+
+    <div>
+        <div class="bs-component">
             <div id="welcomediv" class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Well hello there!</strong> <a href="#" class="alert-link">Select display below to get the agents</a>.
+                <strong>Welcome!</strong> <a href="#" class="alert-link">Select an agent from dropdown list to delete</a>.
             </div>
+            <div>
+                <div class="form-group col-lg-2">
+                    <select class="form-control" id="agentselect">
+                        <option>Select an Agent</option>
+                    </select>
+                </div>
+                <script>
+                    $(document).ready(function(){
+                        $.get("webapi/agents",
+                            function(data){
+                                for (i=0; i<data.length; i++)
+                                {
+                                    $("#agentselect").append("<option value='"
+                                        + data[i].agentId
+                                        + "'>"
+                                        + data[i].agtFirstName
+                                        + " "
+                                        + data[i].agtLastName
+                                        + "</option>");
+                                }
+                            },
+                            "json");
+                    });
 
-            <form class="form-horizontal" method="get">
-                <table>
-                    <tr>
-                        <td><input type="button" value="Display Agents" id="submit" class="btn btn-success"> </td>
-
-                    </tr>
-                </table>
-            </form>
-            <h1 id="currentagents" class="text-danger">Current agents at Travel Experts:</h1>
-            <div id="tablediv">
-                <table class="table table-striped table-hover " id="agentstable">
-                    <tr>
-                        <th>Agent ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Agency ID</th>
-                    </tr>
-                </table>
+                    $("#agentselect").change(function(){
+                        if (confirm("Confirm to delete this agent by clicking OK or cancel"))
+                        {
+                            $.ajax({
+                                url:"webapi/agents/"+ $("#agentselect").val(),
+                                type:"DELETE",
+                                contentType:"application/json",
+                                cache:false,
+                                dataType:"html",
+                                success:function(){ alert("Agent Deleted"), location.reload(); }
+                            });
+                        }
+                    });
+                </script>
             </div>
         </div>
     </div>
