@@ -63,7 +63,7 @@
                 <strong>Howdy!</strong> <a href="#" class="alert-link">Select an agent from dropdown list to view and update</a>.
             </div>
 
-            <div class="form-group col-lg-2">
+            <div id="dropdownlist" class="form-group col-lg-2">
                 <select class="form-control" id="agentselect" onchange="getAgent(this.value)">
                     <option>Select an Agent</option>
                 </select>
@@ -130,8 +130,6 @@
                     </fieldset>
                 </form>
             </div>
-
-
             <script>
                 $(document).ready(function(){
                     $.get("webapi/agents",
@@ -148,18 +146,21 @@
                             }
                         },
                         "json");
+
+                    $("#agentdetail").hide();
                 });
 
                 $("#update").click(function(){
-                    data = '{ "agentId":"' + $("#AgentId").val()
-                        + '", "agtFirstName":"' + $("#AgtFirstName").val()
+                    data =
+                        '{ "agentId":0, "agtFirstName":"' + $("#AgtFirstName").val()
                         + '", "agtMiddleInitial":"' + $("#AgtMiddleInitial").val()
                         + '", "agtLastName":"' + $("#AgtLastName").val()
                         + '", "agtBusPhone":"' + $("#AgtBusPhone").val()
                         + '", "agtEmail":"' + $("#AgtEmail").val()
                         + '", "agtPosition":"' + $("#AgtPosition").val()
-                        + '", "agencyId":"' + $("#AgencyId").val()
-                        + '" }';
+                        + '", "agencyId":' + $("#AgencyId").val()
+                        + ' }';
+
                     $.ajax({
                         url:"webapi/agents/"+ $("#agentselect").val(),
                         type:"PUT",
@@ -167,8 +168,29 @@
                         contentType:"application/json",
                         cache:false,
                         dataType:"html",
-                        success:function(data){ alert(data); }
+                        success:function(){ alert("Agent Updated") }
                     });
+                    alert("Request Submitted");
+                });
+
+                $("#agentselect").change(function(){
+
+                    $.get("webapi/agents/"+ $("#agentselect").val(),
+                        function(data){
+                            $('#AgtFirstName').val(data.agtFirstName);
+                            $('#AgtMiddleInitial').val(data.agtMiddleInitial);
+                            $('#AgtLastName').val(data.agtLastName);
+                            $('#AgtBusPhone').val(data.agtBusPhone);
+                            $('#AgtEmail').val(data.agtEmail);
+                            $('#AgtPosition').val(data.agtPosition);
+                            $('#AgencyId').val(data.agencyId);
+                            $('#AgentId').val(data.agentId);
+
+                        },
+                        "json");
+
+                    $("#agentdetail").show();
+
                 });
             </script>
 

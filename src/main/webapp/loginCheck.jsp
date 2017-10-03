@@ -22,7 +22,7 @@
 
     Connection conn = TravelExpertsDB.getConnection();
     Statement stmt = conn.createStatement();
-    String sql = "select * from agents where AgtUsername='" + username + "' and AgtPassword='" + password + "'";
+    String sql = "select * from agents where agtFirstName='" + username + "' and agtLastName='" + password + "'";
     ResultSet rs;
     rs = stmt.executeQuery(sql);
     if (rs.next())

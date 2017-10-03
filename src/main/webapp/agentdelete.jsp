@@ -94,13 +94,14 @@
                     $("#agentselect").change(function(){
                         if (confirm("Confirm to delete this agent by clicking OK or cancel"))
                         {
+                            //alert($("#agentselect").val());
                             $.ajax({
                                 url:"webapi/agents/"+ $("#agentselect").val(),
                                 type:"DELETE",
                                 contentType:"application/json",
                                 cache:false,
                                 dataType:"html",
-                                success:function(){ alert("Agent Deleted"), location.reload(); }
+                                success:function(){ alert("Agent Deleted"),location.reload(); }
                             });
                         }
                     });

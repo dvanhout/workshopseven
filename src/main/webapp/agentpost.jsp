@@ -128,9 +128,9 @@
                         + '", "agtBusPhone":"' + $("#AgtBusPhone").val()
                         + '", "agtEmail":"' + $("#AgtEmail").val()
                         + '", "agtPosition":"' + $("#AgtPosition").val()
-                        + '", "agentId":"0'
-                        + '", "agencyId":"' + $("#AgencyId").val()
-                        + '" }';
+                        + '", "agentId":0'
+                        + ', "agencyId":' + $("#AgencyId").val()
+                        + ' }';
                     alert(data);
                     $.ajax({
                         url:"webapi/agents/",
