@@ -15,29 +15,30 @@ import java.util.List;
  *
  *      Paths:
  *              /agents
- *                     --> returns all agents
+ *                     --> GET:   returns all agents
+ *                     --> POST:  create a new agent
  *
  *              /agents/{agentId}
  *                     --> GET: returns one agent
- *                     --> POST:  create a new agent
  *                     --> PUT: replace agent's info
  *                     --> DELETE: remove an agent
  *
  */
 
 @Path("/agents")
-@Produces(MediaType.APPLICATION_JSON)
 public class AgentResource {
 
     private AgentService agentService = new AgentService();
 
     // return list of all agents
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Agent> getAgents() {
         return agentService.getAgents();
     }
 
     @POST
+    @Produces(MediaType.TEXT_PLAIN)
     @Consumes({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
     public Response addAgent(String agentJson) {
 
@@ -67,6 +68,7 @@ public class AgentResource {
     // return a single agent
     @GET
     @Path("/{agentId}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Agent getAgent(@PathParam("agentId") int agentId) {
         return agentService.getAgent(agentId);
     }
@@ -74,6 +76,7 @@ public class AgentResource {
     // alter an existing agent record return success/fail
     @PUT
     @Path("/{agentId}")
+    @Produces(MediaType.TEXT_PLAIN)
     @Consumes({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
     public Response updateAgent(@PathParam("agentId") int agentId, String agentJson) {
         // check for empty json
@@ -107,6 +110,7 @@ public class AgentResource {
 
     @DELETE
     @Path("/{agentId}")
+    @Produces(MediaType.TEXT_PLAIN)
     public Response deleteAgent(@PathParam("agentId") int agentId) {
         if (agentService.deleteAgent(agentId)) {
             return Response.status(200).entity("Agent successfully deleted").build();
