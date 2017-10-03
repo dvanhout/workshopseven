@@ -26,10 +26,10 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="agent.jsp">Agents</a></li>
-                <li><a href="#">Customers</a></li>
-                <li><a href="#">Suppliers</a></li>
-                <%--<li class="active"><a href="webapi/agents">Say Hello to all the Agents (JSON format) <span class="sr-only">(current)</span></a></li>--%>
+                <li><a href="agent.jsp">Display Agents</a></li>
+                <li><a href="agentpost.jsp">Add Agents</a></li>
+                <li><a href="agentput.jsp">Update Agents</a></li>
+                <li><a href="agentdelete.jsp">Delete Agents</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <%

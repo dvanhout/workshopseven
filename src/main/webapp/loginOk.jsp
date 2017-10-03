@@ -5,18 +5,23 @@
   Time: 1:55 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import ="java.sql.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="error.jsp" %>
 
+<%
+    if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
+    {
+        response.sendRedirect("login.jsp");
 
-
+    }
+%>
 <html>
 <head>
     <title>Travel Experts Agents Web Service </title>
     <link rel="stylesheet" href="bootstrap.css">
+
 </head>
 <body>
-<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -52,33 +57,17 @@
         </div>
     </div>
 </nav>
-
     <div class="row">
-        <div class="col-lg-6">
-            <div class="well bs-component">
-                <form action="loginCheck.jsp" method="post" class="form-horizontal">
-                <fieldset>
-                    <div class="form-group">
-                        <label for="inputUsername" class="col-lg-2 control-label">Username</label>
-                        <div class="col-lg-10">
-                            <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-                        <div class="col-lg-10">
-                            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
-                            <button type="reset" class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+        <div class="well bs-component col-lg-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Well hello there!</h3>
+                </div>
+                <div class="panel-body">
+                    You have successfully logged in <a href="#" class="alert-link">Select a link from the navigation bar to start</a>.
+                </div>
             </div>
+
         </div>
     </div>
 </body>

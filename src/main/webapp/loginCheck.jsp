@@ -28,7 +28,7 @@
     if (rs.next())
         {
             session.setAttribute("username",username);
-            response.sendRedirect("agent.jsp");
+            response.sendRedirect("loginOk.jsp");
         }
         else
             response.sendRedirect("error.jsp");
