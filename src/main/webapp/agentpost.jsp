@@ -139,7 +139,7 @@
                         contentType:"application/json",
                         cache:false,
                         dataType:"html",
-                        success:function(data){ alert(data); }
+                        success:function(data){ alert("Agent created!"); }
                     });
                 });
             </script>
