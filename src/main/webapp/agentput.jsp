@@ -132,8 +132,6 @@
             </div>
 
 
-
-
             <script>
                 $(document).ready(function(){
                     $.get("webapi/agents",

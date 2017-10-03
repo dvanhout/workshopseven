@@ -97,7 +97,7 @@
         <div class="well bs-component">
             <div id="welcomediv" class="alert alert-dismissible alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <strong>Well hello there!</strong> <a href="#" class="alert-link">Select display below to get the agents</a>.
+                <a href="#" class="alert-link">Select display below to get the agents</a>.
             </div>
 
             <form class="form-horizontal" method="get">
