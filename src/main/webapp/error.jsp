@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: kaaneroglu
-  Date: 2017-10-01
-  Time: 2:23 PM
-  To change this template use File | Settings | File Templates.
+ * Project Workshop 7 CMPP264(JSP)
+ * Author: Kaan
+ * Purpose: JSP Error Page for handling incorrect login information
+ * Date: October 2017
+ *
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -32,6 +32,7 @@
                 <li><a href="agentdelete.jsp">Delete Agents</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <%-- checks if the user is logges in via sessions--%>
                 <%
                     if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
                     {

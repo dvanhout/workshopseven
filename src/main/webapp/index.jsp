@@ -1,3 +1,11 @@
+<%--
+ * Project Workshop 7 CMPP264(JSP)
+ * Author: Kaan
+ * Purpose: JSP home page for the site
+ * Date: October 2017
+ *
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -28,6 +36,7 @@
                     <li><a href="agentdelete.jsp">Delete Agents</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <%-- checks if the user is logges in via sessions--%>
                     <%
                         if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
                         {

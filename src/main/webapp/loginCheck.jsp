@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: kaaneroglu
-  Date: 2017-10-01
-  Time: 2:13 PM
-  To change this template use File | Settings | File Templates.
+ * Project Workshop 7 CMPP264(JSP)
+ * Author: Kaan
+ * Purpose: JSP page that checks the login information from the database
+ * Date: October 2017
+ *
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import ="java.sql.*" %>

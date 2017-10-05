@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: kaaneroglu
-  Date: 2017-09-24
-  Time: 1:55 PM
-  To change this template use File | Settings | File Templates.
+ * Project Workshop 7 CMPP264(JSP)
+ * Author: Kaan
+ * Purpose: JSP Page for updating agents with PUT method from RESTful service
+ * Date: October 2017
+ *
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="error.jsp" %>
 
@@ -41,6 +41,7 @@
                 <li><a href="agentdelete.jsp">Delete Agents</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <%-- checks if the user is logges in via sessions--%>
                 <%
                     if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
                     {
@@ -131,6 +132,7 @@
                 </form>
             </div>
             <script>
+                //populate the dropdown with agent names as page loads
                 $(document).ready(function(){
                     $.get("webapi/agents",
                         function(data){
@@ -150,6 +152,7 @@
                     $("#agentdetail").hide();
                 });
 
+                //call the PUT method when user clicks the update button
                 $("#update").click(function(){
                     data =
                         '{ "agentId":0, "agtFirstName":"' + $("#AgtFirstName").val()
@@ -173,6 +176,7 @@
                     alert("Request Submitted");
                 });
 
+                //when user selects an agent from dropdown, populate the fields for that agent
                 $("#agentselect").change(function(){
 
                     $.get("webapi/agents/"+ $("#agentselect").val(),

@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: kaaneroglu
-  Date: 2017-09-24
-  Time: 1:55 PM
-  To change this template use File | Settings | File Templates.
+ * Project Workshop 7 CMPP264(JSP)
+ * Author: Kaan
+ * Purpose: JSP Page for deleting agents with DELETE method from RESTful service
+ * Date: October 2017
+ *
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="error.jsp" %>
 
@@ -44,6 +44,7 @@
                 <li><a href="agentdelete.jsp">Delete Agents</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <%-- checks if the user is logges in via sessions--%>
                 <%
                     if ((session.getAttribute("username") == null) || (session.getAttribute("username") == ""))
                     {
@@ -74,6 +75,7 @@
                     </select>
                 </div>
                 <script>
+                    //get all the agent firstname and lastname and put in the dropdown list
                     $(document).ready(function(){
                         $.get("webapi/agents",
                             function(data){
@@ -91,6 +93,7 @@
                             "json");
                     });
 
+                    //call DELETE method when user selects an agent from dropdown
                     $("#agentselect").change(function(){
                         if (confirm("Confirm to delete this agent by clicking OK or cancel"))
                         {
