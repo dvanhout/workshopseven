@@ -1,14 +1,12 @@
 /*
  * Project Workshop CMPP264(Java)
  * Author: Don
- * Purpose:
+ * Purpose:  Agent class for agent objects
  * Date: September 2017
  *
  * */
 
 package com.travelexperts.model;
-
-import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

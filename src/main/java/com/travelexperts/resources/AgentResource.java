@@ -1,3 +1,12 @@
+/*
+ * Project Workshop CMPP264(Java)
+ * Author: Don
+ * Purpose:  The Agent web service... paths.  Calls database object via AgentService.java
+ * Date: September 2017
+ *
+ * */
+
+
 package com.travelexperts.resources;
 
 import com.travelexperts.model.Agent;
@@ -42,7 +51,12 @@ public class AgentResource {
     @Consumes({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
     public Response addAgent(String agentJson) {
 
+        /*return Response.ok()
+                .entity(agentJson)
+                .build();*/
+
         Agent agent = null;
+        String message = "";
 
         try {
             // parse JSON data to agent object
@@ -54,13 +68,20 @@ public class AgentResource {
                 return Response.status(200).entity("Agent --> " + agentJson
                         + " --> created.  NOTE: this agentID is invalid").build();
             } else {
+                message = "fail with the parameters: " + agent.getAgtFirstName() + " | "
+                        + agent.getAgtMiddleInitial() + " | "
+                        + agent.getAgtLastName() + " | "
+                        + agent.getAgtBusPhone() + " | "
+                        + agent.getAgtEmail() + " | "
+                        + agent.getAgtPosition() + " | "
+                        + agent.getAgencyId() + " | ";
                 throw new IOException("Cannot create new agent");
             }
 
         } catch (IOException e) {
             e.printStackTrace();
             return Response.status(500)
-                    .entity("There was a problem inserting agent")
+                    .entity(message)
                     .build();
         }
     }
@@ -91,7 +112,7 @@ public class AgentResource {
         } catch (IOException e) {
             e.printStackTrace();
             return Response.status(404)
-                    .entity("There was a problem inserting agent")
+                    .entity("There was a problem updating the agent")
                     .build();
         }
 

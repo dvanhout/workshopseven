@@ -20,7 +20,7 @@ public class TravelExpertsDB {
         {
             System.out.println("Connecting to Travel Experts Database...");
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");
             Connection conn =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/travelexperts", "root", "");
             return conn;
